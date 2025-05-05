@@ -33,7 +33,6 @@ func (u User) getActivityInfo() string {
 
 func main() {
 	const numberOfUsers = 100
-	const workerCount = 3
 
 	startTime := time.Now()
 
@@ -53,13 +52,6 @@ func main() {
 	close(userCh)
 
 	fmt.Printf("DONE! Time Elapsed: %.2f seconds\n", time.Since(startTime).Seconds())
-}
-
-func worker(id int, users <-chan User, results chan<- User) {
-	for user := range users {
-		fmt.Printf("worker #%d finished\n", id)
-		results <- user
-	}
 }
 
 func saveUserInfo(user User, wg *sync.WaitGroup) {
